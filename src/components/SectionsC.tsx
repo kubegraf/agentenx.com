@@ -10,7 +10,7 @@ import {
 
 export function Architecture() {
   return (
-    <Section id="architecture" tint>
+    <Section id="infrastructure" tint>
       <SectionHead
         eyebrow="Architecture"
         title="One platform, three ways in, one place your application runs."
