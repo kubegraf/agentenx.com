@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AgentenX — AI-Native Infrastructure for Developers</title>
+    <meta
+      name="description"
+      content="AgentenX is an AI-native infrastructure platform for deploying and running modern applications without managing the underlying infrastructure."
+    />
+    <link rel="canonical" href="https://kubegraf.github.io/agentenx.com/" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
+
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+
+    <!-- Fonts are same-origin, so preloading them removes the round trip that
+         would otherwise wait for the CSS to be parsed first. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/geist/Geist-Variable.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/geist/GeistMono-Variable.woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AgentenX" />
+    <meta property="og:title" content="AgentenX — AI-Native Infrastructure for Developers" />
+    <meta
+      property="og:description"
+      content="Connect your GitHub repository, deploy your application, and let AgentenX handle the infrastructure behind it."
+    />
+    <meta property="og:url" content="https://kubegraf.github.io/agentenx.com/" />
+    <meta property="og:image" content="https://kubegraf.github.io/agentenx.com/brand/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AgentenX — AI-Native Infrastructure for Developers" />
+    <meta
+      name="twitter:description"
+      content="Connect your GitHub repository, deploy your application, and let AgentenX handle the infrastructure behind it."
+    />
+    <meta name="twitter:image" content="https://kubegraf.github.io/agentenx.com/brand/og.png" />
+
+    <!-- Applies the stored theme before first paint. Without this the page
+         renders light for a frame and then flips, which reads as a bug. -->
+    <script>
+      try {
+        var t = localStorage.getItem("agentenx-theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "AgentenX",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://kubegraf.github.io/agentenx.com/",
+        "description": "AI-native infrastructure platform for deploying and running modern applications without managing the underlying infrastructure.",
+        "publisher": { "@type": "Organization", "name": "Orkastor Limited" }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

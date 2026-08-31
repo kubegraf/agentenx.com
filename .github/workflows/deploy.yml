@@ -1,0 +1,86 @@
+# Build the landing page and publish it to GitHub Pages.
+#
+# The site is served from https://kubegraf.github.io/agentenx.com/ — a SUBPATH,
+# not a domain root. `base` in vite.config.ts must stay in step with the repo
+# name: get it wrong and the deploy still succeeds, but the page loads with no
+# CSS, no fonts and no JavaScript, which reads as a broken build rather than a
+# wrong path. The check below fails the job instead of shipping that.
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Pages needs these three. `id-token` is what the deploy step authenticates with.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race. Not cancel-in-progress: a half-finished deploy
+# that gets cancelled can leave the site on a partial artifact.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: kubegraf-org-runners      # org policy: never ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck and build
+        run: npm run build
+
+      - name: Refuse to publish a build with the wrong base path
+        # Cheap, and it catches the one mistake that makes this site look
+        # completely broken to every visitor.
+        run: |
+          set -euo pipefail
+          if ! grep -q 'src="/agentenx.com/assets/' dist/index.html; then
+            echo "::error::dist/index.html does not reference /agentenx.com/assets/ — check `base` in vite.config.ts"
+            grep -oE '(href|src)="[^"]*"' dist/index.html | head -20
+            exit 1
+          fi
+          # Jekyll would otherwise skip files and folders beginning with _.
+          touch dist/.nojekyll
+          echo "base path ok"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: kubegraf-org-runners
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Confirm the published site actually answers
+        # A green deploy that serves a 404 is the failure this catches.
+        run: |
+          set -euo pipefail
+          URL="https://kubegraf.github.io/agentenx.com/"
+          for i in $(seq 1 10); do
+            code="$(curl -s -o /dev/null -w '%{http_code}' -L "$URL" || true)"
+            echo "attempt $i: HTTP $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 12
+          done
+          echo "::error::$URL did not answer 200"
+          exit 1
