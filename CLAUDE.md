@@ -17,6 +17,27 @@ GitHub Pages at https://kubegraf.github.io/agentenx.com/ on every push to main.
    once, in the footer. Do not turn this into "Orkastor Cloud powered by
    AgentenX" — the whole point is that AgentenX stands on its own.
 
+## ⚠ The runner exception
+
+This repo uses `runs-on: ubuntu-latest`. Every other repo in the org uses
+`kubegraf-org-runners` and the policy says never ubuntu-latest. This is the one
+documented exception, and it is not an oversight to tidy up.
+
+The Default runner group is set `allows_public_repositories: false`. This repo
+must be PUBLIC for https://kubegraf.github.io/agentenx.com/ to be reachable
+without a GitHub login, and every other repo in the org is private — which is why
+nothing had hit this before. A job here that targets `kubegraf-org-runners` is
+never assigned a runner. It does not fail: it queues silently until someone
+cancels it, which is a slow way to learn this.
+
+The alternative was allowing public repos on the shared group, which would let
+any public repo, fork pull requests included, run on runners inside the VPC. One
+static site is not worth that.
+
+The policy exists for secrets, VPC egress and cost. None apply here: this repo
+holds no secrets, reaches no cluster and builds a public static page. If that
+changes, revisit this rather than extending the exception to other repos.
+
 ## This is not Orkastor Cloud or KubeGraf
 
 Different product, different repo, different everything. Nothing here shares code
