@@ -13,7 +13,7 @@ export const BRAND = {
   tagline: "Your infrastructure, run by agents.",
   description:
     "AgentenX is an AI-native infrastructure platform for deploying and running modern applications without managing the underlying infrastructure.",
-  legal: "AgentenX is operated by Orkastor Limited.",
+  legal: "AgentenX is operated by PRAGENX AI LIMITED.",
   contact: "hello@agentenx.com",
 };
 

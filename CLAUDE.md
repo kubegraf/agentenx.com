@@ -13,9 +13,9 @@ GitHub Pages at https://kubegraf.github.io/agentenx.com/ on every push to main.
    certifications, compliance claims, benchmarks, funding, testimonials or
    prices. AgentenX has not launched. The copy says so where it matters, and
    that honesty is deliberate rather than a gap to fill in.
-3. **AgentenX is the brand, Orkastor Limited is the company.** Orkastor appears
-   once, in the footer. Do not turn this into "Orkastor Cloud powered by
-   AgentenX" — the whole point is that AgentenX stands on its own.
+3. **AgentenX is the brand, PRAGENX AI LIMITED is the company.** The company
+   appears once, in the footer. Do not front the parent — the whole point is
+   that AgentenX stands on its own.
 
 ## ⚠ The runner exception
 
