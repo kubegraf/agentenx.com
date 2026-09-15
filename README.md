@@ -5,8 +5,8 @@ The AgentenX landing page.
 **Live:** https://kubegraf.github.io/agentenx.com/
 
 AgentenX is an AI-native infrastructure platform for developers. It is a product
-brand operated by Orkastor Limited, and it is deliberately presented as its own
-independent brand rather than as a sub-brand of Orkastor.
+brand operated by PRAGENX AI LIMITED, and it is deliberately presented as its
+own independent brand rather than as a sub-brand of its parent.
 
 ## Running it
 
